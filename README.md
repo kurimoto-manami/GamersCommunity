@@ -1,3 +1,4 @@
+https://docs.google.com/spreadsheets/d/1_S-lyD_5P3HY9OOZhRTysI9vLWoaY99YERBamsYm8YY/edit#gid=885378170
 # GamersCommunity
 
 ## サイト概要
