@@ -1,0 +1,49 @@
+<div>
+  <%= flash[:notice] %>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <h2><%= @user.nickname %>さんの会員詳細</h2>
+      <table class="table table-noborder">
+        <tbody>
+          <tr>
+            <td>会員ID</td>
+            <td><%= @user.id %></td>
+          </tr>
+          <tr>
+            <td>ニックネーム</td>
+            <td><%= @user.nickname %></td>
+          </tr>
+          <tr>
+            <td>メールアドレス</td>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <td>ステータス</td>
+            <td>
+              <% if @user.is_deleted == false %>
+                有効
+              <% else %>
+                退会
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td><%= link_to "編集する", edit_admin_user_path(@user.id), class: "btn btn-success" %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-7 offset-md-1">
+      <% @contributions.each do |contribution| %>
+      <tbody>
+        <tr>
+          <td><%= contribution.title %></td>
+          <td><%= link_to "詳細", admin_edit_contribution_path(contribution.id), class: "btn-btn-sm btn-success" %></td>
+        </tr>
+      </tbody>
+      <% end %>
+    </div>
+  </div>
+</div>

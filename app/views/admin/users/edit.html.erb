@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 ">
+      <h2><%= @user.nickname %>さんの会員情報編集</h2>
+      <%= form_with(model: @user, url:admin_user_path, local: true) do |f| %>
+      <table class="table table-noborder">
+        <tbody>
+          <tr>
+            <td>会員ID</td>
+            <td><%= @user.id %></td>
+          </tr>
+          <tr>
+            <td>ニックネーム</td>
+            <td><%= f.text_field :nickname, autocomplete: "first_name" %></td>
+          </tr>
+          <tr>
+            <td>メールアドレス</td>
+            <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :会員ステータス %></td>
+            <td><%= f.radio_button :is_deleted, false %>有効 <%= f.radio_button :is_deleted, true %>退会</td>
+          </tr>
+          <tr>
+            <td><%= f.submit "更新を保存", class: "btn btn-success" %><td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

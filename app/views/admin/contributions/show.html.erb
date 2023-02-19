@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>投稿詳細</h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>ジャンル</td>
+            <td><%= @contribution.genre.name %></td>
+          </tr>
+          <tr>
+            <td>タイトル</td>
+            <td><%= @contribution.title %></td>
+          </tr>
+          <tr>
+            <td>投稿内容</td>
+            <td><%= @contribution.body %></td>
+            <td><%= link_to "削除", @contribution_path(@contribution.id), class: "btn btn-sm btn-danger destroy_contribution", method: :delete %></td>
+          </tr>
+          <% @contributions.each do |contribution| %>
+          <tr>
+            <td>コメント</td>
+            <td><%= comment.substance %></td>
+            <td><%= link_to "詳細", comment_path(comment.id), class: "btn-btn-sm btn-success" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
