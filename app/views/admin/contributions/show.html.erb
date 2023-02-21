@@ -15,13 +15,13 @@
           <tr>
             <td>投稿内容</td>
             <td><%= @contribution.body %></td>
-            <td><%= link_to "削除", @contribution_path(@contribution.id), class: "btn btn-sm btn-danger destroy_contribution", method: :delete %></td>
+            <td><%= link_to "削除", admin_contributions_path, class: "btn btn-sm btn-danger destroy_contribution", method: :delete %></td>
           </tr>
           <% @contributions.each do |contribution| %>
           <tr>
             <td>コメント</td>
             <td><%= comment.substance %></td>
-            <td><%= link_to "詳細", comment_path(comment.id), class: "btn-btn-sm btn-success" %></td>
+            <td><%= link_to "詳細", admin_comment_path(comment.id), class: "btn-btn-sm btn-success" %></td>
           </tr>
           <% end %>
         </tbody>
