@@ -17,7 +17,7 @@
             <td><%= @contribution.body %></td>
             <td><%= link_to "削除", admin_contributions_path, class: "btn btn-sm btn-danger destroy_contribution", method: :delete %></td>
           </tr>
-          <% @contributions.each do |contribution| %>
+          <% @comments.each do |comment| %>
           <tr>
             <td>コメント</td>
             <td><%= comment.substance %></td>

@@ -18,6 +18,7 @@
           </tr>
         </tbody>
       </table>
+      <div><%= link_to "戻る", admin_contribution_path(@contribution.id), class: 'btn-sm btn-success' %></div>
       <div><%= link_to "削除", admin_contribution_path(@contribution.id), class: "btn btn-sm btn-danger destroy_contribution", method: :delete %></div>
     </div>
   </div>
