@@ -11,10 +11,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "homes#top"
-    resources :users, only: [:index, :show, :edit, :update, :destroy]
+    resources :users, only: [:index, :show, :edit, :update]
     resources :genres, only: [:create, :index, :edit, :update]
     resources :comments, only: [:index, :show, :edit, :update, :destroy]
     resources :contributions, only: [:index, :show, :edit, :update, :destroy]
+    get '/admin/users/:id/unsubscribe' => 'admin/users#unsubscribe', as: 'unsubscribe'
+    patch '/admin/users/:id/withdrawal' => 'admin/users#withdrawal', as: 'withdrawal'
   end
 
   scope module: :public do
@@ -24,8 +26,9 @@ Rails.application.routes.draw do
     resources :contributions, only: [:new, :create, :index, :show, :edit, :update, :destroy]
     resources :follows, only: [:index, :create, :destroy]
     resources :favorits, only: [:create, :destroy]
-    get '/customers/:id/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
-    patch '/customers/:id/withdrawal' => 'customers#withdrawal', as: 'withdrawal'
+    get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
+    patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
+    post 'users/guest_sign_in', to: 'users/sessions#new_guest'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

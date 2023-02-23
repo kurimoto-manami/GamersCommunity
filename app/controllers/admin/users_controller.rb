@@ -18,11 +18,18 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  def destroy
+  def unsubscribe
     @user = User.find(params[:id])
-
   end
 
+  def withdrawal
+    @user = User.find(params[:id])
+    @user.update(is_deleted: true)
+    reset_session
+    flash[:notice] = "利用停止しました。"
+    redirect_to root_path
+  end
+  
   private
 
   def user_params

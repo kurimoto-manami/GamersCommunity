@@ -23,7 +23,7 @@
           </tr>
           <tr>
             <td><%= f.submit "更新を保存", class: "btn btn-success" %><td>
-            <td><%= link_to "利用停止", admin_user_path(user.id), class: "btn btn-sm btn-danger destroy_user", method: :delete %></td>
+            <td><%= link_to "利用停止", admin_unsubscribe_path(@user.id), class: "btn btn-sm btn-danger" %></td>
           </tr>
         </tbody>
       </table>
