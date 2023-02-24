@@ -3,6 +3,7 @@
 class Public::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
+  before_action :ensure_normal_user, only: [:update, :destroy]
 
   def after_sign_in_path_for(resource)
     user_path(current_user)
@@ -10,6 +11,12 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
   def user_params
     params.require(:user).permit(:nickname, :password, :email, :is_deleted)
+  end
+  
+  def ensure_normal_user
+    if resource.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
+    end
   end
   # GET /resource/sign_up
   # def new
