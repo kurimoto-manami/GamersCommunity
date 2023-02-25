@@ -26,9 +26,9 @@ Rails.application.routes.draw do
     resources :contributions, only: [:new, :create, :index, :show, :edit, :update, :destroy]
     resources :follows, only: [:index, :create, :destroy]
     resources :favorits, only: [:create, :destroy]
+    post 'users/guest_sign_in', to: 'users/sessions#new_guest'
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
-    post 'users/guest_sign_in', to: 'users/sessions#new_guest'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
