@@ -1,0 +1,13 @@
+<div class="container container-m">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="cover-text text-center">
+        <strong>本当に利用停止しますか？</strong>
+          <p>利用停止すると、会員がログインできなくなります。<br>
+            利用停止する場合は、｢利用停止」をクリックしてください。</p>
+          <%= link_to "退会しない", user_path, class: 'btn-sm btn-primary' %>
+          <%= link_to "退会する", withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？", class: 'btn-sm btn-danger' %>
+      </div>
+    </div>
+  </div>
+</div>

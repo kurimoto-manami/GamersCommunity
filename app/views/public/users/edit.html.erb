@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>個人情報編集</h2>
+      <%= form_with model: @user do |f| %>
+      <table class="table table-hover table-inverse">
+        <tbody>
+          <tr>
+            <td><%= f.label :ニックネーム %></td>
+            <td><%= f.text_field :nickname, autocomplete: "nickname" %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.label :メールアドレス %></td>
+            <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+          </tr>
+
+          <tr>
+            <td><%= f.submit "編集内容を保存", class: 'btn-sm btn-success' %></td>
+            <td><%= link_to "退会する", unsubscribe_path(@user.id), class: 'btn-sm btn-danger' %></td>
+          </tr>
+        </tbody>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

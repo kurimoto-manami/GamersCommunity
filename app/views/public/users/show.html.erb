@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <h2>マイページ</h2>
+    <div class="col-md-6">
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>登録情報</th>
+            <th><%= link_to "編集する", edit_user_path, class: 'btn-sm btn-success' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ニックネーム</td>
+            <td><%= @user.nickname %></td>
+          </tr>
+          <tr>
+            <td>メールアドレス</td>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <td><%= link_to '投稿する', new_contribution_path, class: 'btn-sm btn-primary' %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th><%= link_to "フォロー一覧", follows_path, class: 'btn-sm btn-success' %></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @contributions.each do |contribution| %>
+          <tr>
+            <%= link_to contributions_path(contribution.id) do %>
+              <%= contribution.title %>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
