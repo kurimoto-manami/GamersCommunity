@@ -15,18 +15,18 @@ Rails.application.routes.draw do
     resources :genres, only: [:create, :index, :edit, :update]
     resources :comments, only: [:index, :show, :edit, :update, :destroy]
     resources :contributions, only: [:index, :show, :edit, :update, :destroy]
-    get '/admin/users/:id/unsubscribe' => 'admin/users#unsubscribe', as: 'unsubscribe'
-    patch '/admin/users/:id/withdrawal' => 'admin/users#withdrawal', as: 'withdrawal'
+    get '/admin/users/:id/unsubscribe' => 'admin/users#unsubscribe', as: 'admin/unsubscribe'
+    patch '/admin/users/:id/withdrawal' => 'admin/users#withdrawal', as: 'admin/withdrawal'
   end
 
   scope module: :public do
     root to: "homes#top"
+    post 'users/guest_sign_in', to: 'users/sessions#new_guest'
     resources :users, only: [:index, :show, :edit, :update]
     resources :comments, only: [:create, :destroy]
     resources :contributions, only: [:new, :create, :index, :show, :edit, :update, :destroy]
     resources :follows, only: [:index, :create, :destroy]
     resources :favorits, only: [:create, :destroy]
-    post 'users/guest_sign_in', to: 'users/sessions#new_guest'
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
   end
