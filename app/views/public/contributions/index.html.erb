@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-1">
+      <h2>投稿一覧</h2>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>ジャンル</th>
+            <th>タイトル</th>
+            <th>本文</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @contributions.each do |contribution| %>
+          <tr>
+            <td>
+              <%= link_to @user.path(@user.id) do %>
+              <%= @user.nickname %>
+            </td>
+            <td><%= @genre.name %></td>
+            <td>
+              <%= link_to contribution_path(contribution.id) do %>
+                <%= contribution.title %>
+              <% end %>
+            </td>
+            <td>
+              <p><%= contribution.body %></p>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

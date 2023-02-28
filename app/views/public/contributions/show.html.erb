@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-1">
+      <h2><%= @user.nickname %></h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><%= @genre.name %></td>
+          </tr>
+          <tr>
+            <td><%= @contribution.title %></td>
+          </tr>
+          <tr>
+            <td><%= @contribution.body %></td>
+          </tr>
+          <tr>
+            <% if @contribution.user == current_user %>
+              <td><%= link_to "変更", edit_contribution_path(@contribution.id), class: "btn-btn-sm btn-success" %></td>
+              <td><%= link_to "削除", contribution_path(@contribution.id), class: "btn btn-sm btn-danger destroy_contribution", method: :delete %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td>コメント一覧</td>
+          </tr>
+          <% @contributions.each do |contribution| %>
+          <tr>
+            <td><%= comments.substance %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
