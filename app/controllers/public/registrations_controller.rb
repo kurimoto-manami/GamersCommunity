@@ -12,7 +12,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   def user_params
     params.require(:user).permit(:nickname, :password, :email, :is_deleted)
   end
-  
+
   def ensure_normal_user
     if resource.email == 'guest@example.com'
       redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
