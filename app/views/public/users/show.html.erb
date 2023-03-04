@@ -1,6 +1,6 @@
+<h2>マイページ</h2>
 <div class="container">
   <div class="row">
-    <h2>マイページ</h2>
     <div class="col-md-6">
       <table class="table table-hover table-inverse">
         <thead>
@@ -34,7 +34,7 @@
         <tbody>
         <% @contributions.each do |contribution| %>
           <tr>
-            <%= link_to contributions_path(contribution.id) do %>
+            <%= link_to contribution_path(contribution.id) do %>
               <%= contribution.title %>
             <% end %>
           </tr>

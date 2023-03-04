@@ -13,19 +13,17 @@
         <tbody>
           <% @contributions.each do |contribution| %>
           <tr>
+            <td><%= @genre.name %></td>
             <td>
               <%= link_to @user.path(@user.id) do %>
               <%= @user.nickname %>
             </td>
-            <td><%= @genre.name %></td>
             <td>
               <%= link_to contribution_path(contribution.id) do %>
                 <%= contribution.title %>
               <% end %>
             </td>
-            <td>
-              <p><%= contribution.body %></p>
-            </td>
+            <td><%= contribution.body %></td>
           </tr>
           <% end %>
         </tbody>

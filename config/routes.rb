@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
+  devise_scope :user do
+    post 'public/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
 
   namespace :admin do
     root to: "homes#top"
@@ -21,7 +24,6 @@ Rails.application.routes.draw do
 
   scope module: :public do
     root to: "homes#top"
-    post '/users/guest_sign_in', to: 'users/sessions#new_guest'
     resources :users, only: [:index, :show, :edit, :update]
     resources :comments, only: [:create, :destroy]
     resources :contributions, only: [:new, :create, :index, :show, :edit, :update, :destroy]

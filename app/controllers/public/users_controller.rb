@@ -1,7 +1,8 @@
 class Public::UsersController < ApplicationController
-  
+
   def show
     @user = User.find(params[:id])
+    @contributions = @user.contributions
   end
 
   def edit
@@ -11,7 +12,7 @@ class Public::UsersController < ApplicationController
     end
     @user = User.find(params[:id])
   end
-  
+
   def update
     user_id = params[:id].to_i
     unless user_id == current_user.id
@@ -26,7 +27,7 @@ class Public::UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   def unsubscribe
     @user = User.find(params[:id])
   end
@@ -38,9 +39,9 @@ class Public::UsersController < ApplicationController
     flash[:notice] = "退会処理を実行いたしました"
     redirect_to root_path
   end
-  
+
   private
-  
+
   def user_params
     params.require(:user).permit(:nickname, :email, :password, :is_deleted)
   end

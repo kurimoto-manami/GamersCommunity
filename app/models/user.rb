@@ -4,14 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :contributons, dependent: :destroy
+  has_many :contributions, dependent: :destroy
   has_many :genres
-  belongs_to :follow
+  has_many :follow
 
   def active_for_authentication?
     super && (is_deleted == false)
   end
-  
+
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64

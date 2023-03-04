@@ -37,7 +37,7 @@
               </li>
               <% elsif user_signed_in? %>
               <li>
-                <%= link_to "マイページ", customer_path(current_customer.id), class: "nav-link text-light" %>
+                <%= link_to "マイページ", user_path(current_user.id), class: "nav-link text-light" %>
               </li>
               <li>
                 <%= link_to "会員一覧", users_path, class: "nav-link text-light" %>
@@ -62,7 +62,7 @@
                 <%= link_to "ログイン", new_user_session_path, class: "nav-link text-light" %>
               </li>
               <li>
-                <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: "nav-link text-light" %>
+                <%= link_to 'ゲストログイン', public_guest_sign_in_path, class: "nav-link text-light", method: :post %>
               </li>
               <% end %>
             </ul>
@@ -77,7 +77,6 @@
       <div class="container mt-5">
         <div class="row">
           <div class="mx-auto">
-
           </div>
         </div>
       </div>

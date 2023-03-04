@@ -1,15 +1,16 @@
 class Public::ContributionsController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
-  
+
   def new
     @contribution = Contribution.new
+    @genres = Genre.all
   end
 
   def create
     @contribution = Contribution.new(contribution_params)
     @contribution.user_id = current_user.id
     if @contribution.save
-      flash[:notice]="You have created book successfully."
+      flash[:notice]="新規投稿に成功しました。"
       redirect_to contribution_path(@contribution.id)
     else
       @user = @contribution.user
@@ -19,13 +20,12 @@ class Public::ContributionsController < ApplicationController
   end
 
   def index
-    @contributions = Contribution.all
+    @contributions = Contribution.page(params[:page]).per(10)
     @user = current_user
-    @contribution = Contribution.new
+    @genre = @contribution.genre
   end
 
   def show
-    # @show = Book.new
     @contribution = Contribution.find(params[:id])
     @user = @contribution.user
   end
@@ -38,7 +38,7 @@ class Public::ContributionsController < ApplicationController
     @contributions = Contribution.all
     @contribution = Contribution.find(params[:id])
     if @contribution.update(contribution_params)
-      flash[:notice] = "You have updated book successfully."
+      flash[:notice] = "情報を更新しました。"
       redirect_to contribution_path(@contribution.id)
     else
       @user = @contribution.user
@@ -57,7 +57,7 @@ class Public::ContributionsController < ApplicationController
   def contribution_params
     params.require(:contribution).permit(:title, :body, :user_id, :genre_id)
   end
-  
+
   def corrent_user
     @contribution = Contribution.find(params[:id])
     @user = @contribution.user

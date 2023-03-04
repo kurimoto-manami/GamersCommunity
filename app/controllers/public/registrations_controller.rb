@@ -9,10 +9,6 @@ class Public::RegistrationsController < Devise::RegistrationsController
     user_path(current_user)
   end
 
-  def user_params
-    params.require(:user).permit(:nickname, :password, :email, :is_deleted)
-  end
-
   def ensure_normal_user
     if resource.email == 'guest@example.com'
       redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
@@ -52,11 +48,14 @@ class Public::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
+  def user_params
+    params.require(:user).permit(:nickname, :password, :email, :is_deleted)
+  end
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :password, :email, :is_deleted])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :password, :email])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
