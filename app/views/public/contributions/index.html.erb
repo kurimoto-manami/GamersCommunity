@@ -1,5 +1,11 @@
 <div class="container">
   <div class="row">
+    <div class="col-md-3">
+      <%= form_with(url: search_path, local: true, method: :get, class: "search-form") do |f| %>
+        <%= f.text_field :keyword, placeholder: "投稿を検索する", class: "search-input" %>
+        <%= f.submit "検索", class: "search-btn" %>
+      <% end %>
+    </div>
     <div class="col-md-8 offset-md-1">
       <h2>投稿一覧</h2>
       <table class="table table-hover table-inverse">
@@ -13,10 +19,11 @@
         <tbody>
           <% @contributions.each do |contribution| %>
           <tr>
-            <td><%= @genre.name %></td>
+            <td><%= contribution.genre.name %></td>
             <td>
               <%= link_to @user.path(@user.id) do %>
-              <%= @user.nickname %>
+                <%= @user.nickname %>
+              <% end %>
             </td>
             <td>
               <%= link_to contribution_path(contribution.id) do %>

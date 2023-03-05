@@ -2,6 +2,7 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @contributions = Contribution.all
   end
 
   def edit
@@ -29,7 +30,7 @@ class Admin::UsersController < ApplicationController
     flash[:notice] = "利用停止しました。"
     redirect_to root_path
   end
-  
+
   private
 
   def user_params

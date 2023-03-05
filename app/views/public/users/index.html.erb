@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-1">
+      <h2>Gamersmember</h2>
+      <table class="table table-hover table-inverse">
+        <tbody>
+          <% @users.each do |user| %>
+          <tr>
+            <td><%= user.nickname %></td>
+            <td><%= link_to "詳しく見る", user_path(user.id), class: 'btn-sm btn-success' %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

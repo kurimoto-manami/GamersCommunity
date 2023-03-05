@@ -1,6 +1,10 @@
 class Public::ContributionsController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
+  def search
+    @contributions = Contribution.search(params[:keyword])
+  end
+  
   def new
     @contribution = Contribution.new
     @genres = Genre.all
@@ -22,7 +26,6 @@ class Public::ContributionsController < ApplicationController
   def index
     @contributions = Contribution.page(params[:page]).per(10)
     @user = current_user
-    @genre = @contribution.genre
   end
 
   def show
@@ -35,6 +38,10 @@ class Public::ContributionsController < ApplicationController
   end
 
   def update
+    user_id = params[:id].to_i
+    unless user_id == current_user.id
+      redirect_to user_path
+    end
     @contributions = Contribution.all
     @contribution = Contribution.find(params[:id])
     if @contribution.update(contribution_params)
