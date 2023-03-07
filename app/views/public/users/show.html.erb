@@ -34,9 +34,12 @@
         <tbody>
         <% @contributions.each do |contribution| %>
           <tr>
-            <%= link_to contribution_path(contribution.id) do %>
-              <%= contribution.title %>
-            <% end %>
+            <td>
+              <%= link_to contribution_path(contribution.id) do %>
+                <%= contribution.title %>
+              <% end %>
+            </td>
+            <td><%= link_to "#{contribution.comments.count} コメント", contribution_path(contribution.id) %></td>
           </tr>
         <% end %>
         </tbody>

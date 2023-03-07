@@ -5,8 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :contributions, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :genres
-  has_many :follow
+  has_many :follows
 
   def active_for_authentication?
     super && (is_deleted == false)

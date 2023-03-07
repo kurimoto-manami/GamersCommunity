@@ -4,7 +4,7 @@ class Public::ContributionsController < ApplicationController
   def search
     @contributions = Contribution.search(params[:keyword])
   end
-  
+
   def new
     @contribution = Contribution.new
     @genres = Genre.all
@@ -31,6 +31,8 @@ class Public::ContributionsController < ApplicationController
   def show
     @contribution = Contribution.find(params[:id])
     @user = @contribution.user
+    @comment = Comment.new
+    @genres = Genre.all
   end
 
   def edit

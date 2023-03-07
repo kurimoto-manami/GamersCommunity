@@ -1,13 +1,9 @@
 class Contribution < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
 
   belongs_to :genre
   belongs_to :user
-  has_many :comments
-  has_many :favorit
+  has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   def self.search(search)
     if search != ""
@@ -16,5 +12,9 @@ class Contribution < ApplicationRecord
       Contribution.includes(:user).order('created_at DESC')
     end
     render :index
+  end
+
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
   end
 end
