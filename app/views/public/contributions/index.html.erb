@@ -21,8 +21,8 @@
           <tr>
             <td><%= contribution.genre.name %></td>
             <td>
-              <%= link_to @user.path(@user.id) do %>
-                <%= @user.nickname %>
+              <%= link_to user_path(@user.id) do %>
+                <%= contribution.user.nickname %>
               <% end %>
             </td>
             <td>

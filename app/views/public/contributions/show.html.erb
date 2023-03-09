@@ -11,7 +11,7 @@
       <table class="table">
         <tbody>
           <tr>
-            <td><%= @genres.name %></td>
+            <td><%= @contribution.genre.name %></td>
           </tr>
           <tr>
             <td><%= @contribution.title %></td>
@@ -28,13 +28,13 @@
           <tr>
             <td>
               <% if @contribution.favorited_by?(current_user) %>
-                <%= link_to contribution_favorites_path(@contribution), method: :delete do %>
-                  ♥<%= @contribution.favorites.count %> いいね
-                <% end %>
-              <% else %>
-                <%= link_to contribution_favorites_path(@contribution), method: :post do %>
-                  ♡<%= @contribution.favorites.count %> いいね
-                <% end %>
+                  <%= link_to contribution_favorites_path(@contribution), method: :delete do %>
+                    ♥<%= @contribution.favorits.count %> いいね
+                  <% end %>
+                <% else %>
+                  <%= link_to contribution_favorites_path(@contribution), method: :post do %>
+                    ♡<%= @contribution.favorits.count %> いいね
+                  <% end %>
               <% end %>
             </td>
           </tr>

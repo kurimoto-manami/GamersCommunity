@@ -3,7 +3,7 @@ class Contribution < ApplicationRecord
   belongs_to :genre
   belongs_to :user
   has_many :comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :favorits, dependent: :destroy
 
   def self.search(search)
     if search != ""
@@ -15,6 +15,6 @@ class Contribution < ApplicationRecord
   end
 
   def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+    favorits.exists?(user_id: user.id)
   end
 end

@@ -26,13 +26,14 @@ class Public::ContributionsController < ApplicationController
   def index
     @contributions = Contribution.page(params[:page]).per(10)
     @user = current_user
+    # @user = Contribution.current_user
   end
 
   def show
     @contribution = Contribution.find(params[:id])
     @user = @contribution.user
     @comment = Comment.new
-    @genres = Genre.all
+    @contribution.comments = Contribution.comment.all
   end
 
   def edit
