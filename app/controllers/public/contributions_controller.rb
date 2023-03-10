@@ -33,7 +33,7 @@ class Public::ContributionsController < ApplicationController
     @contribution = Contribution.find(params[:id])
     @user = @contribution.user
     @comment = Comment.new
-    @contribution.comments = Contribution.comment.all
+    # @contribution.comments = Contribution.comment.all
   end
 
   def edit
