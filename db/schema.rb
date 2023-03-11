@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_10_110126) do
+ActiveRecord::Schema.define(version: 2023_03_11_065539) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,9 +27,19 @@ ActiveRecord::Schema.define(version: 2023_03_10_110126) do
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "contribution_id"
+    t.text "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "substance"
+  end
+
+  create_table "contribution_tags", force: :cascade do |t|
+    t.integer "contribution_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contribution_id"], name: "index_contribution_tags_on_contribution_id"
+    t.index ["tag_id"], name: "index_contribution_tags_on_tag_id"
   end
 
   create_table "contributions", force: :cascade do |t|
@@ -60,6 +70,12 @@ ActiveRecord::Schema.define(version: 2023_03_10_110126) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -74,4 +90,6 @@ ActiveRecord::Schema.define(version: 2023_03_10_110126) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "contribution_tags", "contributions"
+  add_foreign_key "contribution_tags", "tags"
 end

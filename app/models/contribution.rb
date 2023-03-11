@@ -4,6 +4,8 @@ class Contribution < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :favorits, dependent: :destroy
+  has_many :contribution_tags, dependent: :destroy
+  has_many :tags, through: :contribution_tags
 
   def self.search(search)
     if search != ""

@@ -11,7 +11,11 @@
       <table class="table">
         <tbody>
           <tr>
-            <td><%= @contribution.genre.name %></td>
+            <td>
+              <% @contribution.tags.each do |tag| %>
+                <%= tag.name %>
+              <% end %>
+            </td>
           </tr>
           <tr>
             <td><%= @contribution.title %></td>

@@ -1,6 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
+      <div class="content">
+        <h3>タグ検索</h3>
+          <%= form_tag({controller:"contributions",action:"index"}, method: :get) do %>
+            <% Tag.all.each do |tag| %>
+              <li><%= check_box :tag_ids, tag.name %><%= tag.name %></li>
+            <% end %>
+            <%= submit_tag '検索' %>
+          <% end %>
+      </div>
       <%= form_with(url: search_path, local: true, method: :get, class: "search-form") do |f| %>
         <%= f.text_field :keyword, placeholder: "投稿を検索する", class: "search-input" %>
         <%= f.submit "検索", class: "search-btn" %>
@@ -11,7 +20,7 @@
       <table class="table table-hover table-inverse">
         <thead>
           <tr>
-            <th>ジャンル</th>
+            <th>タグ</th>
             <th>タイトル</th>
             <th>本文</th>
           </tr>
@@ -19,7 +28,11 @@
         <tbody>
           <% @contributions.each do |contribution| %>
           <tr>
-            <td><%= contribution.genre.name %></td>
+            <td>
+              <% contribution.tags.each do |tag| %>
+                <%= tag.name %>
+              <% end %>
+            </td>
             <td>
               <%= link_to user_path(@user.id) do %>
                 <%= contribution.user.nickname %>

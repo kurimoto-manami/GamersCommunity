@@ -26,6 +26,13 @@ class Public::ContributionsController < ApplicationController
   def index
     @contributions = Contribution.page(params[:page]).per(10)
     @user = current_user
+    if params[:tag_ids]
+      @contributions = []
+      params[:tag_ids].each do |key, value|
+        @contributions += Tag.find_by(name: key).contributions if value == "1"
+      end
+      @contributions.uniq!
+    end
     # @user = Contribution.current_user
   end
 
@@ -65,7 +72,7 @@ class Public::ContributionsController < ApplicationController
   private
 
   def contribution_params
-    params.require(:contribution).permit(:title, :body, :user_id, :genre_id)
+    params.require(:contribution).permit(:title, :body, :user_id, :genre_id, tag_ids: [])
   end
 
   def corrent_user

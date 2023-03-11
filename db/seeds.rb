@@ -9,3 +9,14 @@ Admin.create!(
    email: 'test@gmail.com',
    password: "156736"
 )
+
+Tag.create([
+   { name: 'RPG'},
+   { name: 'アクション'},
+   { name: 'シューティング'},
+   { name: 'アドベンチャー'},
+   { name: 'シミュレーション'},
+   { name: 'FPS・TPS'},
+   { name: 'レーシング'},
+   { name: 'パズル'},
+   ])
