@@ -1,19 +1,24 @@
 class Contribution < ApplicationRecord
 
-  belongs_to :genre
+  # belongs_to :genre
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :favorits, dependent: :destroy
   has_many :contribution_tags, dependent: :destroy
-  has_many :tags, through: :contribution_tags
+  has_many :tags, through: :contribution_tags, dependent: :destroy
 
-  def self.search(search)
-    if search != ""
-      Contribution.where(['title LIKE(?)', "%#{search}%"])
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @contribution = Contribution.where("title LIKE?","#{word}")
+    elsif search == "forward_match"
+      @contribution = Contribution.where("title LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @contribution = Contribution.where("title LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @contribution = Contribution.where("title LIKE?","%#{word}%")
     else
-      Contribution.includes(:user).order('created_at DESC')
+      @contribution = Contribution.all
     end
-    render :index
   end
 
   def favorited_by?(user)

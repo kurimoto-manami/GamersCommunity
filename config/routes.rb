@@ -25,12 +25,14 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     resources :users, only: [:index, :show, :edit, :update, :destroy]
-    get '/contributions/search' => 'contributions#search', as: 'search'
+    get "search" => "searches#search"
     resources :contributions, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
     resources :follows, only: [:index, :create, :destroy]
+    get 'followings' => 'follows#followings', as: 'followings'
+    get 'followers' => 'follows#followers', as: 'followers'
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
   end

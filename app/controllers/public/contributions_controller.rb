@@ -1,13 +1,11 @@
 class Public::ContributionsController < ApplicationController
-  before_action :correct_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
-  def search
-    @contributions = Contribution.search(params[:keyword])
-  end
+
 
   def new
     @contribution = Contribution.new
-    @genres = Genre.all
+    # @genres = Genre.all
   end
 
   def create
@@ -29,9 +27,11 @@ class Public::ContributionsController < ApplicationController
     if params[:tag_ids]
       @contributions = []
       params[:tag_ids].each do |key, value|
-        @contributions += Tag.find_by(name: key).contributions if value == "1"
+        if value == "1"
+          tag_contributions = Tag.find_by(name: key).contributions
+          @contributions = @contributions.empty? ? tag_contributions : @contributions & tag_contributions
+        end
       end
-      @contributions.uniq!
     end
     # @user = Contribution.current_user
   end

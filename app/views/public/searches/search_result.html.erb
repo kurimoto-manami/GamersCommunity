@@ -11,7 +11,7 @@
           <% end %>
       </div>
       <div class="search_form">
-        <%= form_with url: search_path, local: true, method: :get do |f| %>
+        <%= form_with url: contributions_path, local: true, method: :get do |f| %>
           <%= f.text_field :word %>
           <%= f.select :range, options_for_select([['User'], ['Contribution']]) %>
           <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
@@ -19,39 +19,26 @@
         <% end %>
       </div>
     </div>
-    <div class="col-md-8 offset-md-1">
-      <h2>投稿一覧</h2>
+    <h2>検索結果</h2>
       <table class="table table-hover table-inverse">
-        <thead>
-          <tr>
-            <th>タグ</th>
-            <th>タイトル</th>
-            <th>本文</th>
-          </tr>
-        </thead>
+        <% if @range == "User" %>
         <tbody>
-          <% @contributions.each do |contribution| %>
-          <tr>
-            <td>
-              <% contribution.tags.each do |tag| %>
-                <%= tag.name %>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to user_path(@user.id) do %>
-                <%= contribution.user.nickname %>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to contribution_path(contribution.id) do %>
-                <%= contribution.title %>
-              <% end %>
-            </td>
-            <td><%= contribution.body %></td>
-          </tr>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+            </tr>
           <% end %>
         </tbody>
+        <% else %>
+        <tbody>
+          <% @books.each do |book| %>
+            <tr>
+              <td><%= book.title %></td>
+              <td><%= book.body %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <% end %>
       </table>
-    </div>
   </div>
 </div>
