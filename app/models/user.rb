@@ -8,11 +8,11 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorits, dependent: :destroy
   # has_many :genres
-  has_many :follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
-  has_many :reverse_of_follows, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
+  has_many :follower, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
+  has_many :followed, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
 
-  has_many :followings, through: :follows, source: :followed
-  has_many :followers, through: :reverse_of_follows, source: :follower
+  has_many :following_user, through: :follower, source: :followed
+  has_many :follower_user, through: :followed, source: :follower
 
   def active_for_authentication?
     super && (is_deleted == false)
@@ -38,16 +38,24 @@ class User < ApplicationRecord
       @user = User.all
     end
   end
-  
+
   def follow(user_id)
-  follows.create(followed_id: user_id)
+ follower.create(followed_id: user_id)
   end
-  
+
   def unfollow(user_id)
-  follows.find_by(followed_id: user_id).destroy
+   follower.find_by(followed_id: user_id).destroy
   end
-  
+
   def following?(user)
-  followings.include?(user)
+   following_user.include?(user)
+  end
+
+  def self.looks(searches, words)
+    if searches == "perfect_match"
+      return User.where("nickname LIKE ?", "#{ words }")
+    else
+      return User.where("nickname LIKE ?", "%#{ words }%")
+    end
   end
 end

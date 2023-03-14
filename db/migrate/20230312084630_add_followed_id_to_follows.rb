@@ -1,5 +1,5 @@
 class AddFollowedIdToFollows < ActiveRecord::Migration[6.1]
-  def change
-    add_column :follows, :followed, :string
+  def up
+    add_column :follows, :followed_id, :integer
   end
 end

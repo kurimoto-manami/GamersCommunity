@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row">
+    <ul>
+    <% @users.each do |u| %>
+    <li>
+      <%= u.nickname %>
+    </li>
+    <% end %>
+    </ul>
+  </div>
+</div>

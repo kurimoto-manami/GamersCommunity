@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2023_03_12_084630) do
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "contribution_id"
-    t.text "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "substance"
@@ -59,11 +58,10 @@ ActiveRecord::Schema.define(version: 2023_03_12_084630) do
   end
 
   create_table "follows", force: :cascade do |t|
-    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "follower"
-    t.string "followed"
+    t.integer "follower_id"
+    t.integer "followed_id"
   end
 
   create_table "genres", force: :cascade do |t|

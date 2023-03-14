@@ -3,6 +3,16 @@ class Public::ContributionsController < ApplicationController
 
 
 
+  def search
+    @range = params[:range]
+
+    if @range == "User"
+      @users = User.looks(params[:search], params[:word])
+    else
+      @contributions = Contribution.looks(params[:search], params[:word])
+    end
+  end
+
   def new
     @contribution = Contribution.new
     # @genres = Genre.all
