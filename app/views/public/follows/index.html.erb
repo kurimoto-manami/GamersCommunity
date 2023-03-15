@@ -1,35 +1,58 @@
-<p><%= "id: #{@user.id}" %></p>
-<p><%= "フォロー数: #{@user.follower.count}" %></p>
-<p><%= "フォロワー数: #{@user.followed.count}" %></p>
-<% unless @user == current_user %>
-  <% if current_user.following?(@user) %>
-    <%= link_to 'フォロー外す', unfollow_path(@user.id), method: :POST %>
-  <% else %>
-    <%= link_to 'フォローする', follow_path(@user.id), method: :POST %>
-  <% end %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="content">
+        <h3>タグ検索</h3>
+          <%= form_tag({controller:"contributions",action:"index"}, method: :get) do %>
+            <% Tag.all.each do |tag| %>
+              <li><%= check_box :tag_ids, tag.name %><%= tag.name %></li>
+            <% end %>
+            <%= submit_tag '検索' %>
+          <% end %>
+      </div>
+      <div class="search_form">
+        <%= form_with url: search_path, local: true, method: :get do |f| %>
+          <%= f.text_field :word %>
+          <%= f.select :range, options_for_select([['User'], ['Contribution']]) %>
+          <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+          <%= f.submit "検索", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <%= "フォロー数: #{@user.follower.count}" %><%= "フォロワー数: #{@user.followed.count}" %>
+      <% unless @user == current_user %>
+        <% if current_user.following?(@user) %>
+          <%= link_to 'フォロー外す', unfollow_path(@user.id), method: :POST %>
+        <% else %>
+          <%= link_to 'フォローする', follow_path(@user.id), method: :POST %>
+        <% end %>
+      <% end %>
 
-<h2>フォロー一覧</h2>
- <% @user.following_user.where.not(id: current_user.id).each do |user| %>
-   <p>
-     <%= "id: #{user.id} email: #{user.email}" %>
-     <% if current_user.following?(user) %>
-       <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST %>
-     <% else %>
-       <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
-     <% end %>
-     <%= link_to "マイページに戻る", user_path(user) %>
-   </p>
- <% end %>
-<h2>フォロワー一覧</h2>
-<% @user.follower_user.where.not(id: current_user.id).each do |user| %>
-  <p>
-    <%= "id: #{user.id} email: #{user.email}" %>
-    <% if current_user.following?(user) %>
-      <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST %>
-    <% else %>
-      <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
-    <% end %>
-    <%= link_to "show", user_path(user) %>
-  </p>
-<% end %>
+      <h2>フォロー一覧</h2>
+        <% @user.following_user.where.not(id: current_user.id).each do |user| %>
+          <p>
+            <%= user.nickname %>
+            <% if current_user.following?(user) %>
+              <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST %>
+            <% else %>
+              <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
+            <% end %>
+            <%= link_to "詳細を見る", user_path(user) %>
+          </p>
+        <% end %>
+      <h2>フォロワー一覧</h2>
+        <% @user.follower_user.where.not(id: current_user.id).each do |user| %>
+          <p>
+            <%= user.nickname %>
+            <% if current_user.following?(user) %>
+              <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST %>
+            <% else %>
+              <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
+            <% end %>
+            <%= link_to "詳細を見る", user_path(user) %>
+          </p>
+        <% end %>
+    </div>
+  </div>
+</div>

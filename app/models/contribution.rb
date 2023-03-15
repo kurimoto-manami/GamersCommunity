@@ -24,4 +24,12 @@ class Contribution < ApplicationRecord
   def favorited_by?(user)
     favorits.exists?(user_id: user.id)
   end
+
+  def self.looks(searches, words)
+    if searches == "perfect_match"
+      return Contribution.where("title LIKE ?", "#{ words }")
+    else
+      return Contribution.where("title LIKE ?", "%#{ words }%")
+    end
+  end
 end

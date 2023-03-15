@@ -28,6 +28,8 @@
       <table class="table table-hover table-inverse">
         <thead>
           <tr>
+            <td><%= "フォロー数: #{@user.follower.count}" %></td>
+            <td><%= "フォロワー数: #{@user.followed.count}" %></td>
             <th>
               <% unless @user == current_user %>
                 <% if current_user.following?(@user) %>
@@ -37,7 +39,7 @@
                 <% end %>
               <% end %>
             </th>
-            <th><%= link_to "フォロー一覧", follow_path, class: 'btn-sm btn-success' %></th>
+            <th><%= link_to "フォロー詳細", follows_path(@user), class: 'btn-sm btn-success' %></th>
           </tr>
         </thead>
         <tbody>

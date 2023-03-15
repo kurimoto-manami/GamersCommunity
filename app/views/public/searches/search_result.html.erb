@@ -25,20 +25,32 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td><%= user.name %></td>
+              <td><%= user.nickname %></td>
             </tr>
           <% end %>
         </tbody>
         <% else %>
         <tbody>
-          <% @books.each do |book| %>
+          <% @contributions.each do |contribution| %>
             <tr>
-              <td><%= book.title %></td>
-              <td><%= book.body %></td>
+              <td><%= contribution.title %></td>
+              <td><%= contribution.body %></td>
             </tr>
           <% end %>
         </tbody>
         <% end %>
       </table>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <ul>
+    <% @users.each do |u| %>
+    <li>
+      <%= u.nickname %>
+    </li>
+    <% end %>
+    </ul>
   </div>
 </div>

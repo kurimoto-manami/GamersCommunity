@@ -25,14 +25,15 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     resources :users, only: [:index, :show, :edit, :update, :destroy]
+    resources :follows, only: [:index]
+    post 'follow/:id' => 'follows#follow', as: 'follow'
+    post 'unfollow/:id' => 'follows#unfollow', as: 'unfollow'
     get "search" => "searches#search"
     resources :contributions, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
     # resources :follows, only: [:index, :create, :destroy]
-    post 'follow/:id' => 'follows#follow', as: 'follow'
-    post 'unfollow/:id' => 'follows#unfollow', as: 'unfollow'
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
   end
