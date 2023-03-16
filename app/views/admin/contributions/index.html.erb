@@ -13,7 +13,7 @@
         <% @contributions.each do |contribution| %>
         <tbody>
           <tr>
-            <td><%= @user.nickname %></td>
+            <td><%= contribution.user.nickname %></td>
             <td>
               <%= link_to admin_contribution_path(contribution.id) do %>
                 <%= contribution.title %>

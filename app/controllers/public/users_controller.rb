@@ -1,4 +1,5 @@
 class Public::UsersController < ApplicationController
+  before_action :set_user, :only => [:show, :favorites, :comments, :destroy]
   
   def index
     @users = User.page(params[:page]).per(15)
@@ -48,5 +49,9 @@ class Public::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:nickname, :email, :password, :is_deleted)
+  end
+  
+  def set_user
+     @user = User.find_by(:id => params[:id])
   end
 end

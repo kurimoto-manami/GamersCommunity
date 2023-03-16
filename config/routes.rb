@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "homes#top"
-    resources :users, only: [:index, :show, :edit, :update]
+    resources :users, only: [:index, :show, :edit, :update, :destroy]
     resources :genres, only: [:create, :index, :edit, :update]
     resources :comments, only: [:index, :show, :edit, :update, :destroy]
     resources :contributions, only: [:index, :show, :edit, :update, :destroy]
@@ -33,7 +33,6 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
-    # resources :follows, only: [:index, :create, :destroy]
     get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
     patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
   end

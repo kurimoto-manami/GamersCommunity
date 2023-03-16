@@ -36,14 +36,14 @@
       </table>
     </div>
     <div class="col-md-7 offset-md-1">
-      <% @contributions.each do |contribution| %>
       <tbody>
+        <% @contributions.each do |contribution| %>
         <tr>
           <td><%= contribution.title %></td>
-          <td><%= link_to "詳細", admin_edit_contribution_path(contribution.id), class: "btn-btn-sm btn-success" %></td>
+          <td><%= link_to "詳細", admin_contribution_path(contribution.id), class: "btn-btn-sm btn-success" %></td>
         </tr>
+        <% end %>
       </tbody>
-      <% end %>
     </div>
   </div>
 </div>

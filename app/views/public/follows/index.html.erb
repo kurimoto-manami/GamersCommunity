@@ -20,6 +20,7 @@
       </div>
     </div>
     <div class="col-md-8 offset-md-1">
+      <h3>フォロー詳細</h3>
       <%= "フォロー数: #{@user.follower.count}" %><%= "フォロワー数: #{@user.followed.count}" %>
       <% unless @user == current_user %>
         <% if current_user.following?(@user) %>
