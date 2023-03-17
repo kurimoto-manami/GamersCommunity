@@ -5,8 +5,12 @@
       <table class="table">
         <tbody>
           <tr>
-            <td>ジャンル</td>
-            <td><%= @contribution.genre.name %></td>
+            <td>タグ</td>
+            <td>
+              <% @contribution.tags.each do |tag| %>
+                <%= tag.name %>
+              <% end %>
+            </td>
           </tr>
           <tr>
             <td>タイトル</td>
@@ -17,7 +21,7 @@
             <td><%= @contribution.body %></td>
             <td><%= link_to "削除", admin_contributions_path, class: "btn btn-sm btn-danger destroy_contribution", method: :delete %></td>
           </tr>
-          <% @comments.each do |comment| %>
+          <% @contribution.comments.each do |comment| %>
           <tr>
             <td>コメント</td>
             <td><%= comment.substance %></td>

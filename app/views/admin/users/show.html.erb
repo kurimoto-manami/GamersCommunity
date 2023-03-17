@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-5">
-      <h2><%= @user.nickname %>さんの会員詳細</h2>
+      <h2><%= @user.nickname %>さんの情報詳細</h2>
       <table class="table table-noborder">
         <tbody>
           <tr>
@@ -35,15 +35,22 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-7 offset-md-1">
-      <tbody>
-        <% @contributions.each do |contribution| %>
-        <tr>
-          <td><%= contribution.title %></td>
-          <td><%= link_to "詳細", admin_contribution_path(contribution.id), class: "btn-btn-sm btn-success" %></td>
-        </tr>
-        <% end %>
-      </tbody>
+    <div class="col-md-6 offset-md-1">
+      <table class="table table-noborder">
+        <thead>
+          <tr>
+            <th>コンテンツタイトル</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @contributions.each do |contribution| %>
+          <tr>
+            <td><%= contribution.title %></td>
+            <td><%= link_to "詳細", admin_contribution_path(contribution.id), class: "btn btn-success" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

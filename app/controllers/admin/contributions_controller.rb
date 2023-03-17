@@ -6,7 +6,7 @@ class Admin::ContributionsController < ApplicationController
 
   def show
     @contribution = Contribution.find(params[:id])
-    @comments = @contribution.comment
+    # @comments = @contribution.comment
   end
 
   def update

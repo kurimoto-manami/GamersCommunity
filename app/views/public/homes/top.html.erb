@@ -1,28 +1,7 @@
 <div>
   <%= flash[:notice] %>
 </div>
-<div class="container container-m">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="content">
-        <h3>タグ検索</h3>
-          <%= form_tag({controller:"contributions",action:"index"}, method: :get) do %>
-            <% Tag.all.each do |tag| %>
-              <li><%= check_box :tag_ids, tag.name %><%= tag.name %></li>
-            <% end %>
-            <%= submit_tag '検索' %>
-          <% end %>
-      </div>
-      <div class="search_form">
-        <%= form_with url: search_path, local: true, method: :get do |f| %>
-          <%= f.text_field :word %>
-          <%= f.select :range, options_for_select([['User'], ['Contribution']]) %>
-          <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-          <%= f.submit "検索", class: "btn btn-primary" %>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-8 offset-md-1">
+    <div class="col-md-12">
       <div class="cover-text text-center">
       <h1>GamersCommunity</h1>
         <p>ようこそ、GamersCommunityへ！</p>
@@ -30,14 +9,12 @@
         <p>会員でない方も投稿の閲覧はできますが、</p>
         <p>投稿するには会員登録が必要になります。</p>
       </div>
-      <div class="btn-wrapper col-10 mx-auto">
-        <div class="row">
-          <%= link_to "ログイン", new_user_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
-        </div>
-        <div class="row">
-          <%= link_to "新規登録", new_user_registration_path, class: "btn btn-success btn-block mb-3" %>
-        </div>
-      </div>
+    </div>
+  <div class="container">
+    <div class="text-center">
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-info mb-3 sign_in" %>
+    </div>
+    <div class="text-center">
+      <%= link_to "新規登録", new_user_registration_path, class: "btn btn-success mb-3" %>
     </div>
   </div>
-</div>
