@@ -1,7 +1,5 @@
 class Public::ContributionsController < ApplicationController
-  before_action :correct_user, only: [:edit, :update, :destroy]
-
-
+  before_action :corrent_user, only: [:edit, :update, :destroy]
 
   def search
     @range = params[:range]
@@ -15,7 +13,6 @@ class Public::ContributionsController < ApplicationController
 
   def new
     @contribution = Contribution.new
-    # @genres = Genre.all
   end
 
   def create
@@ -43,14 +40,12 @@ class Public::ContributionsController < ApplicationController
         end
       end
     end
-    # @user = Contribution.current_user
   end
 
   def show
     @contribution = Contribution.find(params[:id])
     @user = @contribution.user
     @comment = Comment.new
-    # @contribution.comments = Contribution.comment.all
   end
 
   def edit
@@ -60,12 +55,12 @@ class Public::ContributionsController < ApplicationController
   def update
     user_id = params[:id].to_i
     unless user_id == current_user.id
-      redirect_to user_path
+      # redirect_to user_path
     end
     @contributions = Contribution.all
     @contribution = Contribution.find(params[:id])
     if @contribution.update(contribution_params)
-      flash[:notice] = "情報を更新しました。"
+      flash[:notice] = "投稿内容を更新しました。"
       redirect_to contribution_path(@contribution.id)
     else
       @user = @contribution.user
@@ -76,7 +71,8 @@ class Public::ContributionsController < ApplicationController
   def destroy
     @contribution = Contribution.find(params[:id])
     @contribution.destroy
-    redirect_to contributions_path
+    flash[:notice] = "投稿を削除しました。"
+    redirect_to user_path(@user.id)
   end
 
   private

@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @contributions = Contribution.all
+    @contributions = @user.contributions
   end
 
   def edit
@@ -17,18 +17,6 @@ class Admin::UsersController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def unsubscribe
-    @user = User.find(params[:id])
-  end
-
-  def withdrawal
-    @user = User.find(params[:id])
-    @user.update(is_deleted: true)
-    reset_session
-    flash[:notice] = "利用停止しました。"
-    redirect_to root_path
   end
 
   private

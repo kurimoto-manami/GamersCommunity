@@ -14,12 +14,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "homes#top"
-    resources :users, only: [:index, :show, :edit, :update, :destroy]
-    resources :genres, only: [:create, :index, :edit, :update]
-    resources :comments, only: [:index, :show, :edit, :update, :destroy]
-    resources :contributions, only: [:index, :show, :edit, :update, :destroy]
-    get '/admin/users/:id/unsubscribe' => 'admin/users#unsubscribe', as: 'unsubscribe'
-    patch '/admin/users/:id/withdrawal' => 'admin/users#withdrawal', as: 'withdrawal'
+    resources :users, only: [:show, :edit, :update, :destroy]
+    resources :contributions, only: [:index, :show, :update, :destroy] do
+      resources :comments, only: [:destroy]
+    end
   end
 
   scope module: :public do

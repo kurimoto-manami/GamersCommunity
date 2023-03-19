@@ -3,17 +3,12 @@
 class Public::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
-  before_action :ensure_normal_user, only: [:update, :destroy]
 
   def after_sign_in_path_for(resource)
+    flash[:notice] = "新規登録に成功しました。"
     user_path(current_user)
   end
 
-  def ensure_normal_user
-    if resource.email == 'guest@example.com'
-      redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
-    end
-  end
   # GET /resource/sign_up
   # def new
   #   super

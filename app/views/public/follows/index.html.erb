@@ -15,7 +15,7 @@
           <%= f.text_field :word %>
           <%= f.select :range, options_for_select([['User'], ['Contribution']]) %>
           <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-          <%= f.submit "検索", class: "btn btn-primary" %>
+          <%= f.submit "検索" %>
         <% end %>
       </div>
     </div>
@@ -30,28 +30,28 @@
         <% end %>
       <% end %>
 
-      <h2>フォロー一覧</h2>
+      <h3>フォロー一覧</h3>
         <% @user.following_user.where.not(id: current_user.id).each do |user| %>
           <p>
             <%= user.nickname %>
             <% if current_user.following?(user) %>
-              <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST %>
+              <%= link_to 'フォロー外す', unfollow_path(user.id), class: "btn-sm btn-danger", method: :POST %>
             <% else %>
-              <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
+              <%= link_to 'フォローする', follow_path(user.id), class: "btn-sm btn-primary", method: :POST %>
             <% end %>
-            <%= link_to "詳細を見る", user_path(user) %>
+            <%= link_to "詳細を見る", user_path(user), class: 'btn-sm btn-success' %>
           </p>
         <% end %>
-      <h2>フォロワー一覧</h2>
+      <h3>フォロワー一覧</h3>
         <% @user.follower_user.where.not(id: current_user.id).each do |user| %>
           <p>
             <%= user.nickname %>
             <% if current_user.following?(user) %>
-              <%= link_to 'フォロー外す', unfollow_path(user.id), method: :POST %>
+              <%= link_to 'フォロー外す', unfollow_path(user.id), class: "btn-sm btn-danger", method: :POST %>
             <% else %>
-              <%= link_to 'フォローする', follow_path(user.id), method: :POST %>
+              <%= link_to 'フォローする', follow_path(user.id), class: "btn-sm btn-primary", method: :POST %>
             <% end %>
-            <%= link_to "詳細を見る", user_path(user) %>
+            <%= link_to "詳細を見る", user_path(user), class: 'btn-sm btn-success' %>
           </p>
         <% end %>
     </div>

@@ -19,11 +19,10 @@
           </tr>
           <tr>
             <td><%= f.label :会員ステータス %></td>
-            <td><%= f.radio_button :is_deleted, false %>有効 <%= f.radio_button :is_deleted, true %>退会</td>
+            <td><%= f.radio_button :is_deleted, false %>有効 <%= f.radio_button :is_deleted, true %>利用停止</td>
           </tr>
           <tr>
             <td><%= f.submit "更新を保存", class: "btn btn-success" %><td>
-            <td><%= link_to "利用停止", admin_unsubscribe_path(@user.id), class: "btn btn-sm btn-danger" %></td>
           </tr>
         </tbody>
       </table>

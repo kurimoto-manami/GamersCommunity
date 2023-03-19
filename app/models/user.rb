@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_many :contributions, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorits, dependent: :destroy
-  # has_many :genres
   has_many :follower, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
   has_many :followed, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
 

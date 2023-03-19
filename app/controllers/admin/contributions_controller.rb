@@ -6,7 +6,6 @@ class Admin::ContributionsController < ApplicationController
 
   def show
     @contribution = Contribution.find(params[:id])
-    # @comments = @contribution.comment
   end
 
   def update
@@ -23,6 +22,7 @@ class Admin::ContributionsController < ApplicationController
   def destroy
     @contribution = Contribution.find(params[:id])
     @contribution.destroy
+    flash[:notice] = '投稿を削除しました'
     redirect_to admin_contributions_path
   end
 

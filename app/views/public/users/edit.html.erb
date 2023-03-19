@@ -16,8 +16,10 @@
           </tr>
 
           <tr>
-            <td><%= f.submit "編集内容を保存", class: 'btn-sm btn-success' %></td>
-            <td><%= link_to "退会する", unsubscribe_path(@user.id), class: 'btn-sm btn-danger' %></td>
+            <td>
+              <%= f.submit "編集内容を保存", class: 'btn btn-success' %>
+              <%= link_to "退会する", unsubscribe_path(@user.id), class: 'btn btn-danger' %>
+            </td>
           </tr>
         </tbody>
       </table>

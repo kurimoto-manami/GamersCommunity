@@ -6,7 +6,11 @@
         <thead>
           <tr>
             <th>登録情報</th>
-            <th><%= link_to "編集する", edit_user_path, class: 'btn-sm btn-success' %></th>
+            <th>
+              <% if @user.email != 'guest@example.com' %>
+                <%= link_to "情報を編集する", edit_user_path, class: 'btn-sm btn-success' %>
+              <% end %>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -19,29 +23,30 @@
             <td><%= @user.email %></td>
           </tr>
           <tr>
-            <td><%= link_to '投稿する', new_contribution_path, class: 'btn-sm btn-primary' %></td>
+            <td>
+              <% if @user == current_user %>
+                <%= link_to '投稿する', new_contribution_path, class: 'btn-sm btn-primary' %>
+              <% end %>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="col-md-6">
+      <%= "フォロー数: #{@user.follower.count}" %>
+      <%= "フォロワー数: #{@user.followed.count}" %>
+
+      <% unless @user == current_user %>
+        <% if current_user.following?(@user) %>
+          <%= link_to 'フォロー外す', unfollow_path(@user.id), class: "btn-sm btn-danger", method: :POST %>
+        <% else %>
+          <%= link_to 'フォローする', follow_path(@user.id), class: "btn-sm btn-primary", method: :POST %>
+        <% end %>
+      <% end %>
+
+      <%= link_to "フォロー詳細", follows_path(@user), class: 'btn-sm btn-success' %>
+
       <table class="table table-hover table-inverse">
-        <thead>
-          <tr>
-            <td><%= "フォロー数: #{@user.follower.count}" %></td>
-            <td><%= "フォロワー数: #{@user.followed.count}" %></td>
-            <th>
-              <% unless @user == current_user %>
-                <% if current_user.following?(@user) %>
-                  <%= link_to 'フォロー外す', unfollow_path(@user.id), method: :POST %>
-                <% else %>
-                  <%= link_to 'フォローする', follow_path(@user.id), method: :POST %>
-                <% end %>
-              <% end %>
-            </th>
-            <th><%= link_to "フォロー詳細", follows_path(@user), class: 'btn-sm btn-success' %></th>
-          </tr>
-        </thead>
         <tbody>
         <% @contributions.each do |contribution| %>
           <tr>

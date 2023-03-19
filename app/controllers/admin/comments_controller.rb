@@ -1,14 +1,9 @@
 class Admin::CommentsController < ApplicationController
 
-  def show
-    @comment = Comment.find(params[:id])
-    @user = @comment.user
-  end
-
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-    redirect_to admin_contribution_path
+    Comment.find(params[:id]).destroy
+    flash[:notice] = 'コメントを削除しました'
+    redirect_to admin_contribution_path(params[:contribution_id])
   end
 
   private

@@ -1,9 +1,16 @@
+<div>
+  <%= flash[:notice] %>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <h2>投稿詳細</h2>
       <table class="table">
         <tbody>
+          <tr>
+            <td>ニックネーム</td>
+            <td><%= @contribution.user.nickname %></td>
+          </tr>
           <tr>
             <td>タグ</td>
             <td>
@@ -13,19 +20,23 @@
             </td>
           </tr>
           <tr>
-            <td>タイトル</td>
+            <td>ゲームタイトル</td>
             <td><%= @contribution.title %></td>
           </tr>
           <tr>
             <td>投稿内容</td>
             <td><%= @contribution.body %></td>
-            <td><%= link_to "削除", admin_contributions_path, class: "btn btn-sm btn-danger destroy_contribution", method: :delete %></td>
+          </tr>
+          <tr>
+            <td><%= link_to "削除", admin_contribution_path, class: "btn btn-danger destroy_contribution", method: :delete %></td>
+          </tr>
+          <tr>
+            <td><strong>コメント一覧</strong></td>
           </tr>
           <% @contribution.comments.each do |comment| %>
           <tr>
-            <td>コメント</td>
             <td><%= comment.substance %></td>
-            <td><%= link_to "詳細", admin_comment_path(comment.id), class: "btn-btn-sm btn-success" %></td>
+            <td><%= link_to "削除", admin_contribution_comment_path(contribution_id: @contribution.id, id: comment.id), class: "btn btn-danger destroy_contribution", method: :delete %></td>
           </tr>
           <% end %>
         </tbody>
