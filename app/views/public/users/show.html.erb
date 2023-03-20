@@ -44,7 +44,9 @@
         <% end %>
       <% end %>
 
-      <%= link_to "フォロー詳細", follows_path(@user), class: 'btn-sm btn-success' %>
+      <% if @user == current_user %>
+        <%= link_to "フォロー詳細", follows_path(@user), class: 'btn-sm btn-success' %>
+      <% end %>
 
       <table class="table table-hover table-inverse">
         <tbody>
