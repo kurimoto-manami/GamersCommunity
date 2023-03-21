@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :follower_user, through: :followed, source: :follower
 
   def active_for_authentication?
-    super && (is_deleted == false)
+    super && (status == false)
   end
 
   def self.guest
@@ -39,15 +39,15 @@ class User < ApplicationRecord
   end
 
   def follow(user_id)
- follower.create(followed_id: user_id)
+    follower.create(followed_id: user_id)
   end
 
   def unfollow(user_id)
-   follower.find_by(followed_id: user_id).destroy
+    follower.find_by(followed_id: user_id).destroy
   end
 
   def following?(user)
-   following_user.include?(user)
+    following_user.include?(user)
   end
 
   def self.looks(searches, words)

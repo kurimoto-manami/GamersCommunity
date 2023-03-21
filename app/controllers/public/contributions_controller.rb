@@ -55,7 +55,6 @@ class Public::ContributionsController < ApplicationController
   def update
     user_id = params[:id].to_i
     unless user_id == current_user.id
-      # redirect_to user_path
     end
     @contributions = Contribution.all
     @contribution = Contribution.find(params[:id])

@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :set_user, :only => [:show, :favorites, :comments, :destroy]
-  
+
   def index
     @users = User.page(params[:page]).per(15)
   end
@@ -37,20 +37,20 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def withdrawal
-    @user = User.find(params[:id])
-    @user.update(is_deleted: true)
-    reset_session
-    flash[:notice] = "退会処理を実行いたしました"
-    redirect_to root_path
+  def destroy
+      @user = User.find(params[:id])
+      @user.destroy
+      reset_session
+      flash[:notice] = "退会処理を実行いたしました"
+      redirect_to root_path
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:nickname, :email, :password, :is_deleted)
+    params.require(:user).permit(:nickname, :email, :password, :status)
   end
-  
+
   def set_user
      @user = User.find_by(:id => params[:id])
   end

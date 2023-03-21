@@ -4,6 +4,8 @@ class Public::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
+  before_action :user_state, only: [:create]
+
   def after_sign_in_path_for(resource)
     flash[:notice] = "新規登録に成功しました。"
     user_path(current_user)
@@ -46,7 +48,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   protected
 
   def user_params
-    params.require(:user).permit(:nickname, :password, :email, :is_deleted)
+    params.require(:user).permit(:nickname, :password, :email, :status)
   end
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
@@ -58,6 +60,15 @@ class Public::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [:nickname])
   end
 
+  def user_state
+    @user = User.find_by(email: params[:user][:email])
+    return if !@user
+    if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == false)
+    else
+      flash[:notice] = "メールアドレスは登録できません。"
+      redirect_to new_user_registration_path
+    end
+  end
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
   #   super(resource)
