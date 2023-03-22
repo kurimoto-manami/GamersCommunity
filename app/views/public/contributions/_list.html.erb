@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="content">
+        <h3>タグ検索</h3>
+          <%= form_tag({controller:"contributions",action:"index"}, method: :get) do %>
+            <% Tag.all.each do |tag| %>
+              <li><%= check_box :tag_ids, tag.name %><%= tag.name %></li>
+            <% end %>
+            <%= submit_tag '検索' %>
+          <% end %>
+      </div>
+      <div class="search_form">
+        <%= form_with url: search_path, local: true, method: :get do |f| %>
+          <%= f.text_field :word %>
+          <%= f.select :range, options_for_select([['User'], ['Contribution']]) %>
+          <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+          <%= f.submit "検索" %>
+        <% end %>
+      </div>
+    </div>
