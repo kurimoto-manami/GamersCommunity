@@ -1,6 +1,14 @@
 <%= render 'list', contributions: @contributions %>
     <div class="col-md-8 offset-md-1">
       <h2>新規投稿</h2>
+      <% if @contribution.errors.any? %>
+        <%= @contribution.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @contribution.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
         <%= form_with model: @contribution do |f| %>
         <div class="form-group">
           <span>タグ</span>

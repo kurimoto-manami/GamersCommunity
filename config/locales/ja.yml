@@ -1,0 +1,6 @@
+ja:
+  activerecord:
+    attributes:
+      contribution:
+        title: タイトル
+        body: 本文

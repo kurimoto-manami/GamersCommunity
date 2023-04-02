@@ -24,7 +24,7 @@ class Public::ContributionsController < ApplicationController
     else
       @user = @contribution.user
       @contributions = Contribution.all
-      render :index
+      render :new
     end
   end
 

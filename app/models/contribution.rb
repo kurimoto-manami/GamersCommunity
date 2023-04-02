@@ -6,6 +6,9 @@ class Contribution < ApplicationRecord
   has_many :contribution_tags, dependent: :destroy
   has_many :tags, through: :contribution_tags, dependent: :destroy
 
+  validates :title, presence: true
+  validates :body, presence: true
+
   def self.looks(search, word)
     if search == "perfect_match"
       @contribution = Contribution.where("title LIKE?","#{word}")
